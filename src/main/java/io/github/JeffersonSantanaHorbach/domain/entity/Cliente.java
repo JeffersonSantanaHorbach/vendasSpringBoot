@@ -1,24 +1,39 @@
 package io.github.JeffersonSantanaHorbach.domain.entity;
 
+import javax.persistence.*;
+
+import javax.persistence.*;
+
+@Entity
+@Table( name = "cliente" )
 public class Cliente {
 
-    private Integer id_cliente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "nome", length = 100)
     private String nome;
 
     public Cliente() {
     }
 
-    public Cliente(Integer id_cliente, String nome) {
-        this.id_cliente = id_cliente;
+    public Cliente(Integer id, String nome) {
+        this.id = id;
         this.nome = nome;
     }
 
-    public Integer getId_cliente() {
-        return id_cliente;
+    public Cliente(String nome) {
+        this.nome = nome;
     }
 
-    public void setId_cliente(Integer id_cliente) {
-        this.id_cliente = id_cliente;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -27,5 +42,13 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }
