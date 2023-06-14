@@ -1,12 +1,23 @@
 package io.github.JeffersonSantanaHorbach.domain.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name ="produto")
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer idProduto;
+
+    @Column(name= "descricao")
     private String descricao;
+
+    @Column(name = "preco_unitarioi")
     private BigDecimal preco;
+
 
     public Integer getIdProduto() {
         return idProduto;
