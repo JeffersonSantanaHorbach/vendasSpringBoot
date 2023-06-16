@@ -11,8 +11,8 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_pedido")
-    private Integer idPedido;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -21,26 +21,26 @@ public class Pedido {
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    @Column(name = "total", length = 20, precision = 2)
+    @Column(name = "total", precision = 20, scale = 2)
     private BigDecimal total;
 
     @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> intem;
+    private List<ItemPedido> itens;
 
-    public List<ItemPedido> getIntem() {
-        return intem;
+    public List<ItemPedido> getItens() {
+        return itens;
     }
 
-    public void setIntem(List<ItemPedido> intem) {
-        this.intem = intem;
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 
-    public Integer getIdPedido() {
-        return idPedido;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
@@ -65,5 +65,14 @@ public class Pedido {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", dataPedido=" + dataPedido +
+                ", total=" + total +
+                '}';
     }
 }

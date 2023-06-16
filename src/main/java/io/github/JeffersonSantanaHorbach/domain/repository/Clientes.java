@@ -8,16 +8,19 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface Clientes extends JpaRepository<Cliente,Integer> {
+public interface Clientes extends JpaRepository<Cliente, Integer > {
 
-    @Query(value = "SELECT * FROM Cliente c WHERE c" +
-            ".nome like '%:nome%'",nativeQuery = true)
-    List<Cliente> encontrarProNome(@Param("nome") String nome);
+    @Query(value = " select * from cliente c where c.nome like '%:nome%' ", nativeQuery = true)
+    List<Cliente> encontrarPorNome( @Param("nome") String nome );
+
+    @Query(" delete from Cliente c where c.nome = :nome")
+    @Modifying
+    void deleteByNome(String nome);
+
+    boolean existsByNome(String nome);
+
+    @Query(" select c from Cliente c left join fetch c.pedidos where c.id = :id")
+    Cliente findClienteFetchPedidos( @Param("id") Integer id );
 
 
-//    @Query("DELETE FROM Cliente c WHERE c.nome = :nome")
-//    @Modifying
-//    void deleteByNome(String nome);
-
-    boolean existsByNome (String nome);
 }

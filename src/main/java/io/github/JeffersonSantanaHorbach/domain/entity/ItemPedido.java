@@ -8,8 +8,8 @@ public class ItemPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_item_pedido")
-    private Integer idItemPedido;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
@@ -22,12 +22,12 @@ public class ItemPedido {
     @Column
     private Integer quantidade;
 
-    public Integer getIdItemPedido() {
-        return idItemPedido;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdItemPedido(Integer idItemPedido) {
-        this.idItemPedido = idItemPedido;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Pedido getPedido() {
