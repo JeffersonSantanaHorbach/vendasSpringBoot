@@ -5,8 +5,6 @@ import io.github.JeffersonSantanaHorbach.domain.repository.Clientes;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,7 +14,7 @@ import java.util.List;
 @RequestMapping("api/v1/clientes")
 public class ClienteController {
 
-    private Clientes clientes;
+    private final Clientes clientes;
 
     public ClienteController( Clientes clientes ) {
         this.clientes = clientes;
@@ -42,11 +40,11 @@ public class ClienteController {
     public void delete( @PathVariable Integer id ){
         clientes.findById(id)
                 .map( cliente -> {
-                    clientes.delete(cliente );
+                    clientes.delete(cliente);
                     return cliente;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Cliente não encontrado") );
+                        "Cliente não encontrado"));
 
     }
 
@@ -54,8 +52,7 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
                         @RequestBody Cliente cliente ){
-        clientes
-                .findById(id)
+        clientes.findById(id)
                 .map( clienteExistente -> {
                     cliente.setId(clienteExistente.getId());
                     clientes.save(cliente);
@@ -71,9 +68,7 @@ public class ClienteController {
                 .withIgnoreCase()
                 .withStringMatcher(
                         ExampleMatcher.StringMatcher.CONTAINING );
-
-        Example example = Example.of(filtro, matcher);
+        Example<Cliente> example = Example.of(filtro, matcher);
         return clientes.findAll(example);
     }
-
 }

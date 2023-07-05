@@ -7,8 +7,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import org.springframework.http.HttpStatus.*;
-
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -18,7 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1/produtos")
 public class ProdutoController {
 
-    private Produtos repository;
+    private final Produtos repository;
 
     public ProdutoController(Produtos repository) {
         this.repository = repository;
@@ -74,7 +72,7 @@ public class ProdutoController {
                 .withStringMatcher(
                         ExampleMatcher.StringMatcher.CONTAINING );
 
-        Example example = Example.of(filtro, matcher);
+        Example<Produto> example = Example.of(filtro, matcher);
         return repository.findAll(example);
     }
 }
