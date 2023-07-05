@@ -10,11 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table( name = "cliente" )
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 public class Cliente {
 
     @Id
@@ -23,21 +23,21 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
-    @NotEmpty(message = "Campo nome obrigatório!")
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(name = "cpf", length = 11)
-    @NotEmpty(message = "Campo cpf obrigatório!")
-    @CPF(message = "Informe um cpf válido")
+    @NotEmpty(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}")
     private String cpf;
+
+    @JsonIgnore
+    @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY )
+    private Set<Pedido> pedidos;
 
     public Cliente(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
-
-    @JsonIgnore
-    @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY )
-    private Set<Pedido> pedidos;
 
 }
